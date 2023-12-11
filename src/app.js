@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport')
 const session = require('express-session');
 const moment = require('moment');
+var cors = require('cors')
 
 
 const configPath = require('./path');
@@ -36,6 +37,17 @@ var app = express();
 
 
 db.connect();
+
+app.use(cors({
+  origin: '*',
+  methods: ['POST','GET','DELETE','PUT','HEAD','PATCH','OPTIONS']
+}))
+
+app.use("/", (req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	next();
+});
 
 app.use(cookieParser());
 app.use(session({
