@@ -1,0 +1,197 @@
+<%
+	const folderUpload = 'uploads/products/'
+	const linkPrefix   = '/product'
+%>
+
+<% include ./../helper/price.ejs %>
+<% include ./../helper/highlight-char.ejs %>
+<% include ./../helper/check-box-ajax.ejs %>
+<% include ./../helper/add_cart.ejs %>
+<% include ./../helper/pagination.ejs %>
+
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+			<div class="content-wrap">
+
+				<div class="container">
+
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto mb-4">
+							<h3 class="fw-medium h1">All <span data-animate="svg-underline-animated" class="svg-underline nocolor"><span>Products</span></span></h3>
+						</div>
+
+						<div class="col-auto mb-4 d-flex">
+							<div class="dropdown sortbuttons">
+								<button onclick="showListLoai()" class="button button-border m-0 button-dark border-width-1 border-default nott ls0 fw-normal h-bg-color dropdown-toggle" type="button" id="catButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Danh Mục</button>
+								<div id="showListLoai" class="dropdown-menu py-0 border-default rounded-0" aria-labelledby="catButton">
+									<% listProductCategory.forEach(value => { %>
+										<% if(slug === value.slug) { %>
+											<%- checkBoxHelper(value.name, value.slug, slug, value.id) %>
+										<% } %>
+										<% if(slug === '') { %>
+											<%- checkBoxHelper(value.name, value.slug, slug, value.id) %>
+										<% } %>
+									<% })%>
+								</div>
+							</div>
+
+							<div class="dropdown sortbuttons ms-2">
+								<button onclick="showListGia()" class="button button-border m-0 button-dark border-width-1 border-default nott ls0 fw-normal h-bg-color dropdown-toggle" type="button" id="sortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Giá Sản Phẩm</button>
+								<div id="showListGia" class="dropdown-menu py-0 border-default rounded-0" aria-labelledby="sortButton">
+									<div class="dropdown-item">
+										<input id="Dưới 1,000,000đ" onchange="changeGia()" value="1" type="checkbox" class="filterPrice" >
+										Dưới 1,000,000đ
+									</div>
+									<div class="dropdown-item">
+										<input id="1,000,000đ-2,000,000đ" onchange="changeGia()" value="2" type="checkbox" class="filterPrice" >
+										1,000,000đ-2,000,000đ
+									</div>
+									<div class="dropdown-item">
+										<input id="2,000,000đ-3,000,000đ" onchange="changeGia()" value="3" type="checkbox" class="filterPrice" >
+										2,000,000đ-3,000,000đ
+									</div>
+									<div class="dropdown-item">
+										<input id="3,000,000đ-4,000,000đ" onchange="changeGia()" value="4" type="checkbox" class="filterPrice" >
+										3,000,000đ-4,000,000đ
+									</div>
+									<div class="dropdown-item">
+										<input id="4,000,000đ-5,000,000đ" onchange="changeGia()" value="5" type="checkbox" class="filterPrice" >
+										4,000,000đ-5,000,000đ
+									</div>
+									<div class="dropdown-item">
+										<input id="Trên 5,000,000đ" onchange="changeGia()" value="6" type="checkbox" class="filterPrice" >
+										Trên 5,000,000đ
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-auto mb-4 d-flex">
+						<div id="filterLoai" class="filter" hidden>
+							Danh mục: 
+							<b name="filterLoai">
+								
+							</b>
+							<span onclick="filterLoai()">
+								<i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--themecolor)" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none"></rect>
+									<circle cx="128" cy="128" r="96" opacity="0.2"></circle>
+									<circle cx="128" cy="128" r="96" fill="none" stroke="var(--themecolor)" stroke-miterlimit="10" stroke-width="16"></circle>
+									<line x1="160" y1="96" x2="96" y2="160" fill="none" stroke="var(--themecolor)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+									<line x1="160" y1="160" x2="96" y2="96" fill="none" stroke="var(--themecolor)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+								</svg></i>
+							</span>
+						</div>
+
+						<div id="filterGia" class="filter" hidden>
+							Giá sản phẩm: 
+							<b name="filterGia">
+								
+							</b>
+							<span onclick="filterGia()">
+								<i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--themecolor)" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none"></rect>
+									<circle cx="128" cy="128" r="96" opacity="0.2"></circle>
+									<circle cx="128" cy="128" r="96" fill="none" stroke="var(--themecolor)" stroke-miterlimit="10" stroke-width="16"></circle>
+									<line x1="160" y1="96" x2="96" y2="160" fill="none" stroke="var(--themecolor)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+									<line x1="160" y1="160" x2="96" y2="96" fill="none" stroke="var(--themecolor)" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+								</svg></i>
+							</span>
+						</div>
+
+					</div>
+					<!-- Shop
+					============================================= -->
+					<div id="shop" class="shop row gutter-30 col-mb-30 mt-3">
+
+					</div>
+					<!-- #shop end -->
+					<div class="clear"></div>
+
+					<nav aria-label="Page navigation">
+						<%- paginationHelper(pagination, slug, search, linkPrefix) %>
+					</nav>
+
+				</div>
+
+			</div>
+		</section>
+		<!-- #content end -->
+
+		<script>
+			const showProducts = (product, search, arrLoai = [], arrGia = []) => {
+				const folderUpload = 'uploads/products/'
+				let shop = document.getElementById('shop')
+				shop.innerHTML = ''
+				for(let i = 0; i < product.length; i++){
+					if(arrLoai.length > 0){
+						if(arrLoai.includes(product[i].id_category) == false) continue;
+					}
+					if(arrGia.length > 0){
+						if(product[i].price<1000000 && arrGia.includes('1') == false) continue;
+						if(product[i].price>1000000 && product[i].price<2000000 && arrGia.includes('2') == false) continue;
+						if(product[i].price>2000000 && product[i].price<3000000 && arrGia.includes('3') == false) continue;
+						if(product[i].price>3000000 && product[i].price<4000000 && arrGia.includes('4') == false) continue;
+						if(product[i].price>4000000 && product[i].price<5000000 && arrGia.includes('5') == false) continue;
+						if(product[i].price>5000000 && arrGia.includes('6') == false) continue;
+					}
+
+					let addCart = addCartHelper(product[i].id, product[i].name ,product[i].avatar[0], product[i].price)
+					let highlight = highlightHelper(product[i].name, search)
+					let price = priceHelper(product[i].price)
+					shop.innerHTML += `<div class="product col-lg-3 col-md-4 col-sm-6 col-12">
+								<div class="grid-inner">
+									<div class="product-image">
+										<a href="/product/${product[i].id}"><img src="${folderUpload}${product[i].avatar[0]}" alt=""></a>
+										<a href="/product/${product[i].id}"><img src="${folderUpload}${product[i].avatar[1]}" alt=""></a>
+										<div class="bg-overlay">
+											<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+												${addCart}
+												<a href="/product/${product[i].id}" class="btn btn-light"><i class="icon-line-expand"></i></a>
+											</div>
+										</div>
+									</div>
+									<div class="product-desc">
+										<div class="product-title mb-0"><h4 class="mb-0"><a class="fw-medium" href="/product/${product[i].id}">${highlight}</a></h4></div>
+										<h5 class="product-price fw-normal">${price}</h5>
+									</div>
+								</div>
+							</div>`
+				}
+			}
+
+			const loaiSanPham = (arrLoai = []) => {
+				showProducts(product, search, arrLoai)
+			}
+
+			const loaiGia = (arrGia = []) => {
+				showProducts(product, search, arrLoai = [], arrGia)
+			}
+
+			// const loaiGia = (arrLoai = []) => {
+			// 	showProducts(product, search, arrLoai)
+			// }
+
+			const product = JSON.parse('<%-JSON.stringify(product)%>')
+			const search = JSON.parse('<%-JSON.stringify(search)%>')
+			showProducts(product, search) 
+
+
+		</script>
+
+
+		<script type="text/javascript">
+			var socket = io.connect()
+
+			socket.emit('router', 'product')
+
+			socket.on('receiveDiscount', (code) => {
+				// var customContent = '<div style="text-align: center;">' +
+				// 	`<p>Voucher Code: <b>${code}</b></p>` +
+				// 	'<button onclick="alertify.closeAll()">Close</button>' +
+				// 	'</div>';
+				alertify.notify(`Voucher Code: <b>${code}</b>`, 'success', 100);
+			});
+		</script>
