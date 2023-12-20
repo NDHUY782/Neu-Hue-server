@@ -14,7 +14,25 @@ const ContactModel = require(`${__path_models}contact_model`)
 const nodemailer =  require('nodemailer');
 
 const contactService = require(`${__path_services}backend/contact_service`);
+const contact = async (req , res , next) => {
+    try {
 
+        const contact = new ContactModel({
+            email       : req.body.email,
+            firstname   : req.body.firstname,
+            lastname    : req.body.lastname,
+            mobile      : req.body.mobile,
+            content     : req.body.content
+        })
+
+        const user_data = await contact.save();
+        // sendContactMail(user_data.firstname,user_data.lastname,user_data.email)
+        res.status(200).send({success: true,data: user_data})
+    }
+    catch (error) {
+        res.status(400).send({success: false,msg:error.message})
+    }
+}
 module.exports = {
     getlist : async (req , res , next) => {
         let condition = {}
@@ -162,5 +180,6 @@ module.exports = {
         }
 
     },
+    contact,
 
 }

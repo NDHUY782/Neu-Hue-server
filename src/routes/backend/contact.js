@@ -34,6 +34,8 @@ router
     .route('/sort/:sort_field/:sort_type')
     .get(contactController.getSort)    
 
-
+    router
+    .route('/api')
+    .post(contactController.contact)
 
 module.exports = router;
