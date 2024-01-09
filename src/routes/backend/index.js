@@ -34,5 +34,6 @@ router.use('/contact',require('./contact'))
 
 router.use('/category_account',require('./category_account'))
 router.use('/account',require('./account'))
+router.use('/api',require('./user'))
 
 module.exports = router
