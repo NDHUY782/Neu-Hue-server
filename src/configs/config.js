@@ -1,7 +1,7 @@
 const config = {
     secret_jwt: "thisissecretkey",
-    emailUser: 'huynguyen07080112@gmail.com',
-    emailPassword: 'llaxqymogthnyypt' 
+    emailUser: 'neuhue.de@gmail.com',
+    emailPassword: 'uvpqvfhpxozrksml' 
 }
 
 module.exports = config;
