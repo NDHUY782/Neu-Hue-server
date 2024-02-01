@@ -1,9 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const loginMiddleware = require('../../middleware/login')
-const loginManagerMiddleware = require('../../middleware/check_login_manage')
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../../lib/swagger.json');
 
 
 router.use((req, res, next) => {
@@ -11,7 +7,7 @@ router.use((req, res, next) => {
     next();
 });
 
-router.use('/api-docs/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 router.use('/authen',require('./authen'))
 router.use('/no-permission',require('./no_permission'))
@@ -35,5 +31,6 @@ router.use('/contact',require('./contact'))
 router.use('/category_account',require('./category_account'))
 router.use('/account',require('./account'))
 router.use('/api',require('./user'))
+router.use('/cart',require('./cart'))
 
 module.exports = router
