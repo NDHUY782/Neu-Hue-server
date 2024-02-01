@@ -72,6 +72,7 @@
 							</th>
 							<th class="text-center">#</a></th>
 							<th class="text-center">Email</a></th>
+							<th class="text-center">Nội Dung</a></th>
 							<%- sortListHelper(linkPrefix, 'Status', 'status', sortField, sortType) %>
 							<th class="text-center">Action</th>
 						</tr>
@@ -90,6 +91,8 @@
 							<td class="text-center"><%= index+1 %></td>
 							<td class="text-center"><%- highlightHelper(value.email, keyword) %></td>
 
+							<td class="text-center"><%- value.content%></td>
+
 							<td id="changeStatus-<%= value.id%>" class="text-center position-relative">
 								<%- statusHelper(value.status, value.id, linkPrefix) %>
 							</td>
@@ -97,6 +100,9 @@
 							<td class="text-center">
 								<a href="<%= linkPrefix %>form/<%= value.id%>" class="rounded-circle btn btn-sm btn-info " title="Edit">
 									<i class="fas fa-pencil-alt"></i>
+								</a>
+								<a href="<%= linkPrefix %>delete/<%= value.id%>" class="rounded-circle btn btn-sm btn-danger">
+									<i class="fas fa-trash-alt"></i>
 								</a>
 							</td>
 						</tr>
